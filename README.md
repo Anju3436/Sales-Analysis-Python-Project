@@ -70,7 +70,7 @@ This project shows how data analysis can be used to extract insights and support
 1. Download the repository  
 2. Open the .ipynb file in Jupyter Notebook  
 3. Run all cells  
-
+4.Open the `.html` file directly in your browser
 ---
 
 ## 📬 Author
