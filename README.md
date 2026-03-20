@@ -1,7 +1,7 @@
 # Sales-Analysis-Python-Project
 A data analysis project using Pandas and Matplotlib to explore sales performance and business insights.
 📊 Sales Data Analysis Project
-📌 Overview
+📌 Overview 
 This project analyzes a sales dataset to understand business performance, revenue trends, and customer insights using Python.
 🎯 Objectives
 Calculate total, average, max, and minimum sales
