@@ -1,0 +1,264 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": []
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "code",
+      "source": [
+        "from google.colab import files\n",
+        "uploaded = files.upload()"
+      ],
+      "metadata": {
+        "id": "QHWktUN2ngGd"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# **Sales** **Data** **Analysis** **Project**"
+      ],
+      "metadata": {
+        "id": "PAwkcp0p3kiS"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# **INTRODUCTION**\n",
+        "\n",
+        "\n",
+        "This project analysis sales data to identify trends,top products,and regional performance."
+      ],
+      "metadata": {
+        "id": "8qgDH5643w20"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#**DATA LOADING**"
+      ],
+      "metadata": {
+        "id": "rO53VtX75XqD"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import pandas as pd\n",
+        "df = pd.read_csv(\"sales_data_sample (1).csv\", encoding='latin1') #sales_data.csv"
+      ],
+      "metadata": {
+        "id": "FuPGNejfoIxi"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# **DATA** **CLEANING**"
+      ],
+      "metadata": {
+        "id": "MKV0_BCA95yw"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df.info()\n",
+        "df.describe()"
+      ],
+      "metadata": {
+        "id": "GDlGaq8Ao_yF"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df=df.dropna()\n",
+        "df=df.drop_duplicates()\n",
+        "df[\"ORDERDATE\"] = pd.to_datetime(df[\"ORDERDATE\"])"
+      ],
+      "metadata": {
+        "id": "NiIcTZpTpL8s"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# **DATA ANALYSIS**"
+      ],
+      "metadata": {
+        "id": "G3etAyPE6SUs"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "print(\"Total Sales :\", df[\"SALES\"].sum())\n",
+        "print(\"Average Sales:\",df[\"SALES\"].mean())\n",
+        "print(\"Max Sale:\",df[\"SALES\"].max())\n",
+        "print(\"Min Sale;\",df[\"SALES\"].min())"
+      ],
+      "metadata": {
+        "id": "f6oFC595pucS"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "category_sales = df.groupby(\"PRODUCTLINE\")[\"SALES\"].sum()\n",
+        "print(category_sales)"
+      ],
+      "metadata": {
+        "id": "-zZqdqnSq0PI"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "region_sales = df.groupby(\"TERRITORY\")[\"SALES\"].sum()\n",
+        "print(region_sales)"
+      ],
+      "metadata": {
+        "id": "2RiGot-nrNx2"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#  **DATA** **VISUALIZATIONS**"
+      ],
+      "metadata": {
+        "id": "Rlli53qj60bP"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "category_sales.plot(kind='bar',title=\"Category Sales\")"
+      ],
+      "metadata": {
+        "id": "GQrMYcz6rR30"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "region_sales.plot(kind='pie',autopct='%1.1f%%')"
+      ],
+      "metadata": {
+        "id": "SYrCp1iZsKq0"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "monthly_sales = df.resample(\"M\", on=\"ORDERDATE\")[\"SALES\"].sum()\n",
+        "monthly_sales.plot()"
+      ],
+      "metadata": {
+        "id": "MqdqO5C_shIG"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df.groupby(\"PRODUCTLINE\")[\"SALES\"].sum().nlargest(10).plot(kind='bar')"
+      ],
+      "metadata": {
+        "id": "jZaWCiIQs-WU"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "top_products = df.groupby(\"PRODUCTCODE\")[\"SALES\"].sum().sort_values(ascending=False)\n",
+        "top_products.head()"
+      ],
+      "metadata": {
+        "id": "9nEBXImUtWXh"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# **Sales** **Data** **Analysis** - **Insights**\n",
+        "\n",
+        "\n",
+        "## **Observations**\n",
+        "\n",
+        "1.   The category with the highest sales is Classic Cars\n",
+        "2.   The region generating the most revenue is APAC\n",
+        "\n",
+        "\n",
+        "1.   The lowest sales are from Planes\n",
+        "\n",
+        "1.   Sales are highest in the November(especially 2004)\n",
+        "2.   Euro Shopping Channel is the top customer with the highest sales.\n",
+        "\n",
+        "1.   Classic Cars and Vintage Cars are the most popular product lines.\n",
+        "2.   Planes and Ships have lower sales compared to others.\n",
+        "\n",
+        "\n",
+        "1.   The Bar Chart shows that Classic Cars generate the highest sales among all product categories.\n",
+        "\n",
+        "\n",
+        "## **Sales** **Summary**\n",
+        "\n",
+        "\n",
+        "\n",
+        "\n",
+        "\n",
+        "*   Total Sales : 506,562.52\n",
+        "*   Average Sales : 3,446.00\n",
+        "\n",
+        "\n",
+        "*   Maximum Sales : 9,774.03\n",
+        "*   Minimum Sales : 652.35\n",
+        "\n",
+        "## **Conclusion**\n",
+        "\n",
+        "The analysis reveals that automobile-related products (especially Classic Cars) are the main drivers of revenue with the USA being the largest market.Sales peak during the year-end,indicating seasonal demand patterns.\n"
+      ],
+      "metadata": {
+        "id": "flKqj2fZt_86"
+      }
+    }
+  ]
+}
