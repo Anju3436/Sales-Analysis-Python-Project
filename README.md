@@ -2,7 +2,7 @@
 A data analysis project using Pandas and Matplotlib to explore sales performance and business insights.
 # 📊 Sales Data Analysis Project
 🚀 **Live Project:**  
-👉 [Click here to view project]https://anju3436.github.io/Sales-Analysis-Python-Project/
+👉 [Click here to view project](https://anju3436.github.io/Sales-Analysis-Python-Project/)
 
 
 ## 📌 Overview
